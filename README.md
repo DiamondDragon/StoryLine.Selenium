@@ -1,0 +1,1 @@
+Welcome to **StoryLine.Selenium** library which is set of UI-specific actions and expectations for [StoryLine](https://github.com/DiamondDragon/StoryLine/wiki) framework.

@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Version>0.0.1</Version>
+    <PackageLicenseUrl>https://github.com/DiamondDragon/StoryLine.Selenium/blob/master/License.txt</PackageLicenseUrl>
+    <Copyright>Andrei Salanoi &lt;diamond_dragon@tut.by&gt;</Copyright>
+    <PackageProjectUrl>https://github.com/DiamondDragon/StoryLine.Selenium</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/DiamondDragon/StoryLine.Selenium</RepositoryUrl>
+    <PackageTags>test testing tdd framework fluent assert core .netcore netcore selenium ui</PackageTags>
+    <Description>Library contains set of actions and assertions used to create UI tests using Selenium WebDriver.</Description>
+
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Selenium.WebDriver" Version="3.8.0" />
+    <PackageReference Include="StoryLine" Version="1.7.0" />
+  </ItemGroup>
+
+</Project>
