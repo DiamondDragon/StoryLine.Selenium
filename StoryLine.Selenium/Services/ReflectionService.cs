@@ -48,7 +48,9 @@ namespace StoryLine.Selenium.Services
             if (model == null)
                 throw new ArgumentNullException(nameof(model));
 
-            model.GetType().GetProperty(propertyName, BindingFlags.Public | BindingFlags.Instance).SetValue(model, value);
+            var property = model.GetType().GetProperty(propertyName, BindingFlags.Public | BindingFlags.Instance);
+            
+            property.SetValue(model, Convert.ChangeType(value, property.PropertyType));
         }
     }
 }

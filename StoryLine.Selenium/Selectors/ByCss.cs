@@ -4,12 +4,12 @@ using OpenQA.Selenium;
 
 namespace StoryLine.Selenium.Selectors
 {
-    public class IdElementSelector : ElementSelectorBase
+    public class ByCss : ElementSelectorBase
     {
-        protected override string SelectorType => nameof(By.Id);
+        protected override string SelectorType => nameof(By.CssSelector);
 
-        public IdElementSelector(string id, string description = null)
-            : base(id, description)
+        public ByCss(string pattern, string description = null)
+            : base(pattern, description)
         {
         }
 
@@ -20,7 +20,7 @@ namespace StoryLine.Selenium.Selectors
             if (driver == null)
                 throw new ArgumentNullException(nameof(driver));
 
-            return element.FindElement(By.Id(Pattern));
+            return element.FindElement(By.CssSelector(Pattern));
         }
 
         public override IEnumerable<IWebElement> FindAll(ISearchContext element, IWebDriver driver)
@@ -30,7 +30,7 @@ namespace StoryLine.Selenium.Selectors
             if (driver == null)
                 throw new ArgumentNullException(nameof(driver));
 
-            return element.FindElements(By.Id(Pattern));
+            return driver.FindElements(By.CssSelector(Pattern));
         }
     }
 }

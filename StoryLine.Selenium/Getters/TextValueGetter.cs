@@ -12,7 +12,7 @@ namespace StoryLine.Selenium.Getters
             if (driver == null)
                 throw new ArgumentNullException(nameof(driver));
 
-            if (element.TagName.Equals("intput", StringComparison.OrdinalIgnoreCase))
+            if (element.TagName.Equals("input", StringComparison.OrdinalIgnoreCase))
                 return element.GetAttribute("value");
 
             return element.Text;

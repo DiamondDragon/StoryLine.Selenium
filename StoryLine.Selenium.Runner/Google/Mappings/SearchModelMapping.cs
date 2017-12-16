@@ -10,7 +10,7 @@ namespace StoryLine.Selenium.Runner.Google.Mappings
     {
         public override void Configure()
         {
-            Property(x => x.Text, SearchPage.QueryTextBox, new InputValueGetter(), new TextValueSetter());
+            Property(x => x.Text, SearchPage.QueryTextBox, new TextValueGetter(), new TextValueSetter());
         }
     }
 }

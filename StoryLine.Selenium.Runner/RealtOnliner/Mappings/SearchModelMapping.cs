@@ -10,7 +10,7 @@ namespace StoryLine.Selenium.Runner.RealtOnliner.Mappings
     {
         public override void Configure()
         {
-            Property(x => x.Text, EstatePage.SearchTextBox, new InputValueGetter(), new TextValueSetter());
+            Property(x => x.Text, EstatePage.SearchTextBox, new TextValueGetter(), new TextValueSetter());
         }
     }
 }

@@ -4,12 +4,12 @@ using OpenQA.Selenium;
 
 namespace StoryLine.Selenium.Selectors
 {
-    public class LinkTextElementSelector : ElementSelectorBase
+    public class ByNameElementSelector : ElementSelectorBase
     {
-        protected override string SelectorType => nameof(By.LinkText);
+        protected override string SelectorType => nameof(By.Name);
 
-        public LinkTextElementSelector(string text, string description = null)
-            : base(text, description)
+        public ByNameElementSelector(string name, string description = null)
+            : base(name, description)
         {
         }
 
@@ -20,7 +20,7 @@ namespace StoryLine.Selenium.Selectors
             if (driver == null)
                 throw new ArgumentNullException(nameof(driver));
 
-            return element.FindElement(By.LinkText(Pattern));
+            return element.FindElement(By.Name(Pattern));
         }
 
         public override IEnumerable<IWebElement> FindAll(ISearchContext element, IWebDriver driver)
@@ -30,7 +30,7 @@ namespace StoryLine.Selenium.Selectors
             if (driver == null)
                 throw new ArgumentNullException(nameof(driver));
 
-            return element.FindElements(By.LinkText(Pattern));
+            return element.FindElements(By.Name(Pattern));
         }
     }
 }

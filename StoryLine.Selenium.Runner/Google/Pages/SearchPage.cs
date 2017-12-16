@@ -4,6 +4,6 @@ namespace StoryLine.Selenium.Runner.Google.Pages
 {
     public static class SearchPage
     {
-        public static readonly IElementSelector QueryTextBox = new NamedElementSelector("q");
+        public static readonly IElementSelector QueryTextBox = new ByNameElementSelector("q");
     }
 }

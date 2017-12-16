@@ -21,7 +21,7 @@ namespace StoryLine.Selenium.Mappings
         /// </summary>
         public abstract void Configure();
 
-        protected void Property(Expression<Func<TModel, object>> property, IElementSelector selector, IValueGetter getter = null, IValueSetter setter = null)
+        protected void Property<TProperty>(Expression<Func<TModel, TProperty>> property, IElementSelector selector, IValueGetter getter = null, IValueSetter setter = null)
         {
             if (property == null)
                 throw new ArgumentNullException(nameof(property));
@@ -40,7 +40,7 @@ namespace StoryLine.Selenium.Mappings
                 });
         }
 
-        protected void Collection(Expression<Func<TModel, object>> property, IElementSelector selector, ICollectionValueGetter getter = null, ICollectionValueSetter setter = null)
+        protected void Collection<TProperty>(Expression<Func<TModel, TProperty>> property, IElementSelector selector, ICollectionValueGetter getter = null, ICollectionValueSetter setter = null)
         {
             if (property == null)
                 throw new ArgumentNullException(nameof(property));

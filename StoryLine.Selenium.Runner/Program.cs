@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using OpenQA.Selenium;
 using StoryLine.Selenium.Actions;
+using StoryLine.Selenium.Runner.GuidGenerator.Actions;
 using StoryLine.Selenium.Runner.RealtOnliner.Actions;
 using StoryLine.Selenium.Runner.RealtOnliner.Models;
 using StoryLine.Selenium.Runner.RealtOnliner.Pages;
@@ -31,15 +32,20 @@ namespace StoryLine.Selenium.Runner
             //    .Run();
 
 
+            //Scenario.New()
+            //    .Given(actor)
+            //    .HasPerformed<Search>(x => x.Text("Парус"))
+            //    .When()
+            //    .Performs<SwitchTo>(x => x.Frame(EstatePage.ResultsFrame))
+            //    .Performs<GetModel>(x => x.Type<SearchResultCollectionModel>())
+            //    .Performs<SwitchTo>(x => x.DefaultContent())
+            //    .Then()
+            //    .Expects<Artifact<SearchResultCollectionModel>>(x => x.Meets(p => p.Items.Length > 0))
+            //    .Run();
+
             Scenario.New()
-                .Given(actor)
-                .HasPerformed<Search>(x => x.Text("Парус"))
-                .When()
-                .Performs<SwitchTo>(x => x.Frame(EstatePage.ResultsFrame))
-                .Performs<GetModel>(x => x.Type<SearchResultCollectionModel>())
-                .Performs<SwitchTo>(x => x.DefaultContent())
-                .Then()
-                .Expects<Artifact<SearchResultCollectionModel>>(x => x.Meets(p => p.Items.Length > 0))
+                .When(actor)
+                    .Performs<GenerateGuids>()
                 .Run();
 
             driver.Quit();
