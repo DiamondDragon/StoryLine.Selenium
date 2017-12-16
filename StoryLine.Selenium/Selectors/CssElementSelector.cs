@@ -4,29 +4,33 @@ using OpenQA.Selenium;
 
 namespace StoryLine.Selenium.Selectors
 {
-    public class CssElementSelector : IElementSelector
+    public class CssElementSelector : ElementSelectorBase
     {
-        private readonly string _selector;
+        protected override string SelectorType => nameof(By.CssSelector);
 
-        public CssElementSelector(string selector)
+        public CssElementSelector(string pattern, string description = null)
+            : base(pattern, description)
         {
-            _selector = selector ?? throw new ArgumentNullException(nameof(selector));
         }
 
-        public IWebElement Find(ISearchContext element, IWebDriver driver)
+        public override IWebElement Find(ISearchContext element, IWebDriver driver)
         {
             if (element == null)
                 throw new ArgumentNullException(nameof(element));
+            if (driver == null)
+                throw new ArgumentNullException(nameof(driver));
 
-            return element.FindElement(By.CssSelector(_selector));
+            return element.FindElement(By.CssSelector(Pattern));
         }
 
-        public IEnumerable<IWebElement> FindAll(ISearchContext element, IWebDriver driver)
+        public override IEnumerable<IWebElement> FindAll(ISearchContext element, IWebDriver driver)
         {
             if (element == null)
                 throw new ArgumentNullException(nameof(element));
+            if (driver == null)
+                throw new ArgumentNullException(nameof(driver));
 
-            return driver.FindElements(By.CssSelector(_selector));
+            return driver.FindElements(By.CssSelector(Pattern));
         }
     }
 }

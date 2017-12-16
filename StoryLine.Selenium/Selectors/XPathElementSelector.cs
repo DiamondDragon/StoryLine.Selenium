@@ -4,12 +4,12 @@ using OpenQA.Selenium;
 
 namespace StoryLine.Selenium.Selectors
 {
-    public class NamedElementSelector : ElementSelectorBase
+    public class XPathElementSelector : ElementSelectorBase
     {
-        protected override string SelectorType => nameof(By.Name);
+        protected override string SelectorType => nameof(By.XPath);
 
-        public NamedElementSelector(string name, string description = null)
-            : base(name, description)
+        public XPathElementSelector(string selector, string description = null)
+            : base(selector, description)
         {
         }
 
@@ -20,7 +20,7 @@ namespace StoryLine.Selenium.Selectors
             if (driver == null)
                 throw new ArgumentNullException(nameof(driver));
 
-            return element.FindElement(By.Name(Pattern));
+            return element.FindElement(By.XPath(Pattern));
         }
 
         public override IEnumerable<IWebElement> FindAll(ISearchContext element, IWebDriver driver)
@@ -30,7 +30,7 @@ namespace StoryLine.Selenium.Selectors
             if (driver == null)
                 throw new ArgumentNullException(nameof(driver));
 
-            return element.FindElements(By.Name(Pattern));
+            return element.FindElements(By.XPath(Pattern));
         }
     }
 }
