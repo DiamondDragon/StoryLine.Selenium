@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>0.0.1</Version>
+    <Version>0.1.0</Version>
     <PackageLicenseUrl>https://github.com/DiamondDragon/StoryLine.Selenium/blob/master/License.txt</PackageLicenseUrl>
     <Copyright>Andrei Salanoi &lt;diamond_dragon@tut.by&gt;</Copyright>
     <PackageProjectUrl>https://github.com/DiamondDragon/StoryLine.Selenium</PackageProjectUrl>
