@@ -16,8 +16,10 @@ namespace StoryLine.Selenium.Getters
                 throw new ArgumentNullException(nameof(driver));
 
             var mapping = Config.MappingRegistry.GetByType(typeof(TModel));
+            if (mapping == null)
+                throw new InvalidOperationException($"Model mapping for type {typeof(TModel)} was not found.");
 
-            return 
+            return
                 (from element in elements
                  select (TModel)mapping.GetData(element, driver))
                 .ToArray();
