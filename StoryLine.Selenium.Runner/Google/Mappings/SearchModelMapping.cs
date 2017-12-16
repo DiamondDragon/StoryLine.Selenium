@@ -7,7 +7,7 @@ namespace StoryLine.Selenium.Runner.Google.Mappings
 {
     public class GoogleSearchMapping : ModelMapping<SearchModel>
     {
-        public GoogleSearchMapping()
+        public override void Configure()
         {
             Property(x => x.Text, SearchPage.QueryTextBox, new InputValueGetter(), new TextValueSetter());
         }

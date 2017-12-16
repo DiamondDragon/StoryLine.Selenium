@@ -7,7 +7,7 @@ namespace StoryLine.Selenium.Runner.RealtOnliner.Mappings
 {
     public class SearchResultModelMapping : ModelMapping<SearchResultModel>
     {
-        public SearchResultModelMapping()
+        public override void Configure()
         {
             Property(x => x.Title, SearchItemContainer.Title, new TextValueGetter());
             Property(x => x.Description, SearchItemContainer.Description, new TextValueGetter());

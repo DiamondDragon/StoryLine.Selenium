@@ -22,6 +22,11 @@ namespace StoryLine.Selenium.Mappings
                     select (IModelMapping)Activator.CreateInstance(type))
                 .ToArray();
 
+            foreach (var mapper in mappers)
+            {
+                mapper.Configure();
+            }
+
             Mappings.AddRange(mappers);
         }
 

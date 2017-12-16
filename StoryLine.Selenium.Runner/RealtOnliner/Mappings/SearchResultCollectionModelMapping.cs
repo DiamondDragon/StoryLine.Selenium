@@ -7,7 +7,7 @@ namespace StoryLine.Selenium.Runner.RealtOnliner.Mappings
 {
     public class SearchResultCollectionModelMapping : ModelMapping<SearchResultCollectionModel>
     {
-        public SearchResultCollectionModelMapping()
+        public override void Configure()
         {
             Collection(x => x.Items, SearchResultContainer.Items, new CollectionValueGetter<SearchResultModel>());
         }

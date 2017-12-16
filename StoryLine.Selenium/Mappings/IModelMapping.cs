@@ -6,6 +6,7 @@ namespace StoryLine.Selenium.Mappings
     public interface IModelMapping
     {
         Type GetModelType();
+        void Configure();
         void SetData(object model, ISearchContext container, IWebDriver browser);
         object GetData(ISearchContext container, IWebDriver browser);
     }
