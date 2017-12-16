@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
 using OpenQA.Selenium;
-using StoryLine.Selenium.Bindings;
+using StoryLine.Exceptions;
+using StoryLine.Selenium.Getters;
 using StoryLine.Selenium.Selectors;
+using StoryLine.Selenium.Setters;
 
 namespace StoryLine.Selenium.Mappings
 {
@@ -15,9 +16,19 @@ namespace StoryLine.Selenium.Mappings
         private readonly Dictionary<string, PropertyConfig> _propertyMappings = new Dictionary<string, PropertyConfig>(StringComparer.OrdinalIgnoreCase);
         private readonly Dictionary<string, ColllectionConfig> _collectionMappings = new Dictionary<string, ColllectionConfig>(StringComparer.OrdinalIgnoreCase);
 
-        protected void Property(Expression<Func<TModel, object>> property, IElementSelector selector, IValueGetter getter = null, IValueSetter setter = null)
+        /// <summary>
+        /// This methods is expected to be implemented by each model mapping. It defines all property mappings of model.
+        /// </summary>
+        public abstract void Configure();
+
+        protected void Property<TProperty>(Expression<Func<TModel, TProperty>> property, IElementSelector selector, IValueGetter getter = null, IValueSetter setter = null)
         {
-            var propertyName = property.GetPropertyInfo().Name;
+            if (property == null)
+                throw new ArgumentNullException(nameof(property));
+            if (selector == null)
+                throw new ArgumentNullException(nameof(selector));
+
+            var propertyName = Config.ReflectionService.GetPropertyName(property);
 
             _propertyMappings.Add(
                 propertyName,
@@ -29,9 +40,14 @@ namespace StoryLine.Selenium.Mappings
                 });
         }
 
-        protected void Collection(Expression<Func<TModel, object>> property, IElementSelector selector, ICollectionValueGetter getter = null, ICollectionValueSetter setter = null)
+        protected void Collection<TProperty>(Expression<Func<TModel, TProperty>> property, IElementSelector selector, ICollectionValueGetter getter = null, ICollectionValueSetter setter = null)
         {
-            var propertyName = property.GetPropertyInfo().Name;
+            if (property == null)
+                throw new ArgumentNullException(nameof(property));
+            if (selector == null)
+                throw new ArgumentNullException(nameof(selector));
+
+            var propertyName = Config.ReflectionService.GetPropertyName(property); ;
 
             _collectionMappings.Add(
                 propertyName,
@@ -76,10 +92,19 @@ namespace StoryLine.Selenium.Mappings
         {
             foreach (var mapping in _collectionMappings.Where(x => x.Value.Setter != null))
             {
-                var value = model.GetType().GetProperty(mapping.Key, BindingFlags.Public | BindingFlags.Instance).GetValue(model);
+                var value = Config.ReflectionService.GetPropertyValue(mapping.Key, model);
+                var matchingControls = mapping.Value.Selector.FindAll(container, browser);
+                mapping.Value.Setter.Set(value, matchingControls, browser);
+            }
+        }
 
-                var control = mapping.Value.Selector.FindAll(container, browser);
-                mapping.Value.Setter.Set(value, control, browser);
+        private void GetCollectionValues(ISearchContext container, IWebDriver browser, TModel model)
+        {
+            foreach (var mapping in _collectionMappings.Where(x => x.Value.Getter != null))
+            {
+                var matchingControls = mapping.Value.Selector.FindAll(container, browser);
+                var value = mapping.Value.Getter.Get(matchingControls, browser);
+                Config.ReflectionService.SetPropertyValue(mapping.Key, model, value);
             }
         }
 
@@ -87,9 +112,11 @@ namespace StoryLine.Selenium.Mappings
         {
             foreach (var mapping in _propertyMappings.Where(x => x.Value.Setter != null))
             {
-                var value = model.GetType().GetProperty(mapping.Key, BindingFlags.Public | BindingFlags.Instance)
-                    .GetValue(model);
                 var control = mapping.Value.Selector.Find(container, browser);
+                if (control == null)
+                    throw new ExpectationException("Can't find element: " + mapping.Value.Selector.GetElementDescription());
+
+                var value = Config.ReflectionService.GetPropertyValue(mapping.Key, model);
                 mapping.Value.Setter.Set(value, control, browser);
             }
         }
@@ -99,18 +126,11 @@ namespace StoryLine.Selenium.Mappings
             foreach (var mapping in _propertyMappings.Where(x => x.Value.Getter != null))
             {
                 var control = mapping.Value.Selector.Find(container, browser);
-                var value = mapping.Value.Getter.Get(control, browser);
-                model.GetType().GetProperty(mapping.Key, BindingFlags.Public | BindingFlags.Instance).SetValue(model, value);
-            }
-        }
+                if (control == null)
+                    throw new ExpectationException("Can't find element: " + mapping.Value.Selector.GetElementDescription());
 
-        private void GetCollectionValues(ISearchContext container, IWebDriver browser, TModel model)
-        {
-            foreach (var mapping in _collectionMappings.Where(x => x.Value.Getter != null))
-            {
-                var control = mapping.Value.Selector.FindAll(container, browser);
                 var value = mapping.Value.Getter.Get(control, browser);
-                model.GetType().GetProperty(mapping.Key, BindingFlags.Public | BindingFlags.Instance).SetValue(model, value);
+                Config.ReflectionService.SetPropertyValue(mapping.Key, model, value);
             }
         }
 

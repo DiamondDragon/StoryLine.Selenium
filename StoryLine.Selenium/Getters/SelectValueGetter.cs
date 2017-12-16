@@ -1,9 +1,10 @@
 ﻿using System;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 
-namespace StoryLine.Selenium.Bindings
+namespace StoryLine.Selenium.Getters
 {
-    public class InputValueGetter : IValueGetter
+    public class SelectValueGetter : IValueGetter
     {
         public object Get(IWebElement element, IWebDriver driver)
         {
@@ -12,7 +13,12 @@ namespace StoryLine.Selenium.Bindings
             if (driver == null)
                 throw new ArgumentNullException(nameof(driver));
 
-            return element.GetAttribute("value");
+            var dropdown = new SelectElement(element);
+
+            var option = dropdown.SelectedOption;
+
+            return option?.GetAttribute("value");
         }
     }
 }
+

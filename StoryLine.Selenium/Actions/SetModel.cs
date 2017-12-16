@@ -1,6 +1,7 @@
 ﻿using System;
 using StoryLine.Contracts;
 using StoryLine.Selenium.Mappings;
+using StoryLine.Selenium.Services;
 
 namespace StoryLine.Selenium.Actions
 {
@@ -25,7 +26,7 @@ namespace StoryLine.Selenium.Actions
 
         public IAction Build()
         {
-            return new SetModelAction(_model, _mapping ?? MappingRegistry.GetByType(_model.GetType()));
+            return new SetModelAction(_model, _mapping ?? Config.MappingRegistry.GetByType(_model.GetType()));
         }
     }
 }

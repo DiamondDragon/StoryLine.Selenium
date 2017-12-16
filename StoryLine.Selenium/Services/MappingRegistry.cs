@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using StoryLine.Selenium.Mappings;
 
-namespace StoryLine.Selenium.Mappings
+namespace StoryLine.Selenium.Services
 {
-    public static class MappingRegistry
+    public class MappingRegistry : IMappingRegistry
     {
         private static readonly List<IModelMapping> Mappings = new List<IModelMapping>();
 
-        public static void RegisterMappingsFrom(Assembly assembly)
+        public void RegisterMappingsFrom(Assembly assembly)
         {
             var mappingTypes =
                 (from type in assembly.GetExportedTypes()
@@ -22,10 +23,15 @@ namespace StoryLine.Selenium.Mappings
                     select (IModelMapping)Activator.CreateInstance(type))
                 .ToArray();
 
+            foreach (var mapper in mappers)
+            {
+                mapper.Configure();
+            }
+
             Mappings.AddRange(mappers);
         }
 
-        public static IModelMapping GetByType(Type modelType)
+        public IModelMapping GetByType(Type modelType)
         {
             if (modelType == null)
                 throw new ArgumentNullException(nameof(modelType));

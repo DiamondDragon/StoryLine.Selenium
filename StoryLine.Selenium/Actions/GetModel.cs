@@ -25,7 +25,7 @@ namespace StoryLine.Selenium.Actions
 
         public IAction Build()
         {
-            return new GetModelAction(_mapping ?? MappingRegistry.GetByType(_type));
+            return new GetModelAction(_mapping ?? Config.MappingRegistry.GetByType(_type));
         }
     }
 }

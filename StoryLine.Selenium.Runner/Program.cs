@@ -1,9 +1,7 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Firefox;
 using StoryLine.Selenium.Actions;
-using StoryLine.Selenium.Mappings;
+using StoryLine.Selenium.Runner.GuidGenerator.Actions;
 using StoryLine.Selenium.Runner.RealtOnliner.Actions;
 using StoryLine.Selenium.Runner.RealtOnliner.Models;
 using StoryLine.Selenium.Runner.RealtOnliner.Pages;
@@ -15,7 +13,7 @@ namespace StoryLine.Selenium.Runner
     {
         static void Main(string[] args)
         {
-            MappingRegistry.RegisterMappingsFrom(Assembly.GetExecutingAssembly());
+            Config.RegisterMappingsFromAssembly(Assembly.GetExecutingAssembly());
 
             IWebDriver driver = new OpenQA.Selenium.Chrome.ChromeDriver(@".\bin\Debug\netcoreapp2.0\");
             //IWebDriver driver = new FirefoxDriver(@"d:\_Tests\DotNetCore20.SeleniumPoC\DotNetCore20.SeleniumPoC\bin\Debug\netcoreapp2.0\");
@@ -34,15 +32,20 @@ namespace StoryLine.Selenium.Runner
             //    .Run();
 
 
+            //Scenario.New()
+            //    .Given(actor)
+            //    .HasPerformed<Search>(x => x.Text("Парус"))
+            //    .When()
+            //    .Performs<SwitchTo>(x => x.Frame(EstatePage.ResultsFrame))
+            //    .Performs<GetModel>(x => x.Type<SearchResultCollectionModel>())
+            //    .Performs<SwitchTo>(x => x.DefaultContent())
+            //    .Then()
+            //    .Expects<Artifact<SearchResultCollectionModel>>(x => x.Meets(p => p.Items.Length > 0))
+            //    .Run();
+
             Scenario.New()
-                .Given(actor)
-                .HasPerformed<Search>(x => x.Text("Парус"))
-                .When()
-                .Performs<SwitchTo>(x => x.Frame(EstatePage.ResultsFrame))
-                .Performs<GetModel>(x => x.Type<SearchResultCollectionModel>())
-                .Performs<SwitchTo>(x => x.DefaultContent())
-                .Then()
-                .Expects<Artifact<SearchResultCollectionModel>>(x => x.Meets(p => p.Items.Length > 0))
+                .When(actor)
+                    .Performs<GenerateGuids>()
                 .Run();
 
             driver.Quit();

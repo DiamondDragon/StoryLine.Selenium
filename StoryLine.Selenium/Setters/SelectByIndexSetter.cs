@@ -1,20 +1,24 @@
 ﻿using System;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 
-namespace StoryLine.Selenium.Bindings
+namespace StoryLine.Selenium.Setters
 {
-    public class TextValueSetter : IValueSetter
+    public class SelectByIndexSetter : IValueSetter
     {
         public void Set(object value, IWebElement element, IWebDriver driver)
         {
-            if (value == null)
-                throw new ArgumentNullException(nameof(value));
             if (element == null)
                 throw new ArgumentNullException(nameof(element));
             if (driver == null)
                 throw new ArgumentNullException(nameof(driver));
 
-            element.SendKeys((string)value);
+            var select = new SelectElement(element);
+
+            if (value == null)
+                select.DeselectAll();
+            else
+                select.SelectByIndex((int)Convert.ChangeType(value, typeof(int)));
         }
     }
 }
