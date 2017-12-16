@@ -133,8 +133,6 @@ namespace StoryLine.Selenium.Mappings
             }
         }
 
-
-
         private class PropertyConfig
         {
             public IElementSelector Selector { get; set; }

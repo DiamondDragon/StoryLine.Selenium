@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using OpenQA.Selenium;
-using StoryLine.Selenium.Mappings;
 
 namespace StoryLine.Selenium.Bindings
 {
@@ -16,7 +15,7 @@ namespace StoryLine.Selenium.Bindings
             if (driver == null)
                 throw new ArgumentNullException(nameof(driver));
 
-            var mapping = MappingRegistry.GetByType(typeof(TModel));
+            var mapping = Config.MappingRegistry.GetByType(typeof(TModel));
 
             return 
                 (from element in elements
