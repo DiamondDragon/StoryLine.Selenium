@@ -1,6 +1,6 @@
 ﻿using OpenQA.Selenium;
 
-namespace StoryLine.Selenium.Bindings
+namespace StoryLine.Selenium.Setters
 {
     public interface IValueSetter
     {

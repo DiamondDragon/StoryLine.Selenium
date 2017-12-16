@@ -1,4 +1,4 @@
-﻿using StoryLine.Selenium.Bindings;
+﻿using StoryLine.Selenium.Getters;
 using StoryLine.Selenium.Mappings;
 using StoryLine.Selenium.Runner.RealtOnliner.Models;
 using StoryLine.Selenium.Runner.RealtOnliner.Pages;

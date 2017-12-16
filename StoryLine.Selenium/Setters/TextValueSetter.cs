@@ -1,7 +1,7 @@
 ﻿using System;
 using OpenQA.Selenium;
 
-namespace StoryLine.Selenium.Bindings
+namespace StoryLine.Selenium.Setters
 {
     public class TextValueSetter : IValueSetter
     {

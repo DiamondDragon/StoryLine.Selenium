@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using OpenQA.Selenium;
 
-namespace StoryLine.Selenium.Bindings
+namespace StoryLine.Selenium.Getters
 {
     public class CollectionValueGetter<TModel> : ICollectionValueGetter
         where TModel : new()

@@ -4,8 +4,9 @@ using System.Linq;
 using System.Linq.Expressions;
 using OpenQA.Selenium;
 using StoryLine.Exceptions;
-using StoryLine.Selenium.Bindings;
+using StoryLine.Selenium.Getters;
 using StoryLine.Selenium.Selectors;
+using StoryLine.Selenium.Setters;
 
 namespace StoryLine.Selenium.Mappings
 {

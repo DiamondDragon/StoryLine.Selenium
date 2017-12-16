@@ -1,7 +1,7 @@
 ﻿using System;
 using OpenQA.Selenium;
 
-namespace StoryLine.Selenium.Bindings
+namespace StoryLine.Selenium.Getters
 {
     public class TextValueGetter : IValueGetter
     {
