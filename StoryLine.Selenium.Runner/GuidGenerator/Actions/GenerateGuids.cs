@@ -4,6 +4,7 @@ using StoryLine.Contracts;
 using StoryLine.Selenium.Actions;
 using StoryLine.Selenium.Runner.GuidGenerator.Models;
 using StoryLine.Selenium.Runner.GuidGenerator.Pages;
+using StoryLine.Selenium.Runner.Helpers;
 using StoryLine.Utils.Expectations;
 
 namespace StoryLine.Selenium.Runner.GuidGenerator.Actions
@@ -32,16 +33,23 @@ namespace StoryLine.Selenium.Runner.GuidGenerator.Actions
             if (actor == null)
                 throw new ArgumentNullException(nameof(actor));
 
-            Scenario.New()
-                .Given(actor)
-                    .HasPerformed<Navigate>(x => x.Url("https://www.guidgenerator.com/"))
-                    .HasPerformed<SetModel>(x => x.Data(new MainPageModel { Count = _guidCount }))
-                .When()
-                    .Performs<Click>(x => x.Element(MainPage.GenerateButton))
-                    .Performs<GetModel>(x => x.Type<MainPageModel>())
-                .Then()
-                    .Expects<Artifact<MainPageModel>>(x => x.Meets(p => p.Results.Length > 0))
-                .Run();
+            //Scenario.New()
+            //    .Given(actor)
+            //        .HasPerformed<Navigate>(x => x.Url("https://www.guidgenerator.com/"))
+            //        .HasPerformed<SetModel>(x => x.Data(new MainPageModel { Count = _guidCount }))
+            //    .When()
+            //        .Performs<Click>(x => x.Element(MainPage.GenerateButton))
+            //        .Performs<GetModel>(x => x.Type<MainPageModel>())
+            //    .Then()
+            //        .Expects<Artifact<MainPageModel>>(x => x.Meets(p => p.Results.Length > 0))
+            //    .Run();
+
+            actor
+                .NavigatesTo("https://www.guidgenerator.com/")
+                .Sets(new MainPageModel { Count = _guidCount })
+                .Clicks(MainPage.GenerateButton)
+                .Gets<MainPageModel>()
+                .ExpectsArtifact<MainPageModel>(x => x.Results.Length > 0);
         }
     }
 }
