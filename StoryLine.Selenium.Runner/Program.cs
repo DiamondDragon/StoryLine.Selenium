@@ -5,6 +5,7 @@ using StoryLine.Selenium.Runner.GuidGenerator.Actions;
 using StoryLine.Selenium.Runner.RealtOnliner.Actions;
 using StoryLine.Selenium.Runner.RealtOnliner.Models;
 using StoryLine.Selenium.Runner.RealtOnliner.Pages;
+using StoryLine.Selenium.Runner.SimpleAdviceInvestment.Actions;
 using StoryLine.Utils.Expectations;
 
 namespace StoryLine.Selenium.Runner
@@ -43,9 +44,16 @@ namespace StoryLine.Selenium.Runner
             //    .Expects<Artifact<SearchResultCollectionModel>>(x => x.Meets(p => p.Items.Length > 0))
             //    .Run();
 
+            //Scenario.New()
+            //    .When(actor)
+            //        .Performs<GenerateGuids>()
+            //    .Run();
+
+
             Scenario.New()
                 .When(actor)
-                    .Performs<GenerateGuids>()
+                .Performs<GoToLoginPage>()
+                .Performs<LoginToPFP>()
                 .Run();
 
             driver.Quit();
