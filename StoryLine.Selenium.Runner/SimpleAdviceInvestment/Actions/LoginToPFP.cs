@@ -10,7 +10,7 @@ using StoryLine.Utils.Expectations;
 
 namespace StoryLine.Selenium.Runner.SimpleAdviceInvestment.Actions
 {
-    class LoginToPFP : IActionBuilder, IAction
+    public class LoginToPFP : IActionBuilder, IAction
     {
         private string _username = "ip-25981@mailinator.com";
         private string _password = "Welcome123";
