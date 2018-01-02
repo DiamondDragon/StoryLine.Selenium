@@ -52,7 +52,7 @@ namespace StoryLine.Selenium.Runner
 
             Scenario.New()
                 .When(actor)
-                .Performs<GoToLoginPage>()
+                //.Performs<GoToLoginPage>()
                 .Performs<LoginToPFP>()
                 .Run();
 

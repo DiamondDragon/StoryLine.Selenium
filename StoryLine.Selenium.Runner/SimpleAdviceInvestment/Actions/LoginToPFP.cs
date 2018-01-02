@@ -41,6 +41,8 @@ namespace StoryLine.Selenium.Runner.SimpleAdviceInvestment.Actions
 
             Scenario.New()
                 .Given(actor)
+                .HasPerformed<Navigate>(x => x.Url("https://tst-04-pfp.test.intelliflo.com/"))
+                .HasPerformed<Click>(x => x.Element(WelcomePage.LoginButton))
                 .HasPerformed<SetModel>(x => x.Data(new LoginPageModel { Username = _username, Password = _password }))
                 .When()
                 .Performs<Click>(x => x.Element(LoginPage.LoginButton))
